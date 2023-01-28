@@ -7,15 +7,9 @@ const Ques = require("../Modals/question.modal");
 
 quesRouter.get("/", async (req, res) => {
   let category = req.query.category; 
-//   try {
-//     let ques;
-// if(category){
-// ques = await Ques.find({category});
-// }else{
-//   ques  = await Ques.find();
-// }
+
 try{
-  let ques =await Ques.find();
+  let ques =await Ques.find().limit(10);
   return res.status(200).send({ success: true,ques });
 }  
    catch (error) {
@@ -42,6 +36,24 @@ quesRouter.post("/new", async (req, res) => {
     return res.status(404).send({ error: error.message });
   }
 });
+
+quesRouter.post("/check/:id",async(req,res)=>{
+  let id = req.params.id;
+  let ans = req.body.ans;
+  
+  try {
+    let qus =await Ques.findById({_id:id});
+    
+    if(qus.ans === ans){
+      res.send({your:"correct",mine:qus.ans})
+    }
+    else{
+      res.send({your:"wrong",mine:qus.ans})
+    }
+  } catch (error) {
+    res.send(error)
+  }
+})
 
 
 quesRouter.patch("/update/:id", async (req, res) => {

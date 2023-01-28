@@ -6,7 +6,7 @@ const quesSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    answer: {
+    ans: {
       type: String,
       required: true,
     },
@@ -29,7 +29,7 @@ const quesSchema = new mongoose.Schema(
         required: true,
       },
     },
-    // category: { type: String, required: true },
+    category: { type: String, required: true },
   },
   {
     versionKey: false,
