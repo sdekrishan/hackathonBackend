@@ -6,6 +6,7 @@ const {connection} = require("./config.js/db");
 require('dotenv').config();
 const cors = require("cors");
 const isAuthenticated = require("./middlewares/autenticate.middleware.js");
+const { QuoteRouter } = require("./Routes/Quote.route.js");
 
 
 //const variables
@@ -20,6 +21,8 @@ app.use(cors());
 app.get("/",(req,res)=>{
   res.send("Welcome to QUiz app")
 })
+
+app.use("/user",QuoteRouter)
 //all the routes 
 app.use("/user",userRouter);
 // app.use(isAuthenticated);
