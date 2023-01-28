@@ -6,10 +6,11 @@ const Ques = require("../Modals/question.modal");
 
 
 quesRouter.get("/", async (req, res) => {
-  let category = req.query.category; 
 
 try{
-  let ques =await Ques.find().limit(10);
+  let ques =await Ques.aggregate(
+    [ { $sample: { size: 5 } } ]
+ ).limit(5);
   return res.status(200).send({ success: true,ques });
 }  
    catch (error) {
