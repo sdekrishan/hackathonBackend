@@ -22,7 +22,7 @@ app.get("/",(req,res)=>{
   res.send("Welcome to QUiz app")
 })
 
-app.use("/user",QuoteRouter)
+app.use("/quote",QuoteRouter)
 //all the routes 
 app.use("/user",userRouter);
 // app.use(isAuthenticated);
