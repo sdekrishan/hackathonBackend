@@ -1,7 +1,7 @@
 const express = require("express");
 
 const quesRouter = express.Router();
-const Ques = require("../Modals/question.modal.js");
+const Ques = require("../Modals/question.modal");
 
 
 
