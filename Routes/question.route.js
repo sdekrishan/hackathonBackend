@@ -6,11 +6,13 @@ const Ques = require("../Modals/question.modal");
 
 
 quesRouter.get("/", async (req, res) => {
+  let page = req.query.page || 1;
+  
 
 try{
   let ques =await Ques.aggregate(
     [ { $sample: { size: 10 } } ]
- ).limit(10);
+ ).limit(10).skip(page*10);
   return res.status(200).send({ success: true,ques });
 }  
    catch (error) {
