@@ -1,19 +1,19 @@
 const express = require("express");
 
-const quesRouter = express.Router();
-const Ques = require("../Modals/question.modal");
+const QueRouter = express.Router();
+const {Que} = require("../Modals/Quetion.modal");
 
 
 
-quesRouter.get("/", async (req, res) => {
+QueRouter.get("/", async (req, res) => {
   let page = req.query.page || 1;
   
 
 try{
-  let ques =await Ques.aggregate(
+  let Que =await Que.aggregate(
     [ { $sample: { size: 10 } } ]
  ).limit(10).skip(page*10);
-  return res.status(200).send({ success: true,ques });
+  return res.status(200).send({ success: true,Que });
 }  
    catch (error) {
     return res.status(404).send({ error: error.message });
@@ -23,29 +23,29 @@ try{
 
 
 
-quesRouter.post("/new", async (req, res) => {
+QueRouter.post("/new", async (req, res) => {
   try {
-    const { question } = req.body;
-    const getQues = await Ques.findOne({question });
+    const { Quetion } = req.body;
+    const getQue = await Que.findOne({Quetion });
     
-    if (getQues) {
-      return res.send({ message: "Question already exists" });
+    if (getQue) {
+      return res.send({ message: "Quetion already exists" });
     }
 
-    const ques = await Ques.create(req.body);
+    const Que = await Que.create(req.body);
  
-    return res.status(201).send({ message: "Ques suceesfully added",ques });
+    return res.status(201).send({ message: "Que suceesfully added",Que });
   } catch (error) {
     return res.status(404).send({ error: error.message });
   }
 });
 
-quesRouter.post("/check/:id",async(req,res)=>{
+QueRouter.post("/check/:id",async(req,res)=>{
   let id = req.params.id;
   let ans = req.body.ans;
   
   try {
-    let qus =await Ques.findById({_id:id});
+    let qus =await Que.findById({_id:id});
     
     if(qus.ans === ans){
       res.send({your:"correct",mine:qus.ans})
@@ -59,13 +59,13 @@ quesRouter.post("/check/:id",async(req,res)=>{
 })
 
 
-quesRouter.patch("/update/:id", async (req, res) => {
+QueRouter.patch("/update/:id", async (req, res) => {
   
   try {
 
-    const ques = await Ques.findByIdAndUpdate(req.params.id,req.body);
+    const Que = await Que.findByIdAndUpdate(req.params.id,req.body);
 
-    return res.status(200).send({ message: "updated succesfully",ques });
+    return res.status(200).send({ message: "updated succesfully",Que });
   } catch (error) {
     console.log(error)
     return res.send({ message: "Something went wrong" });
@@ -75,10 +75,10 @@ quesRouter.patch("/update/:id", async (req, res) => {
 
 
 //get users details
-quesRouter.delete("/delete/:id", async (req, res) => {
+QueRouter.delete("/delete/:id", async (req, res) => {
   let id = req.params.id
   try {
-    const ques = await Ques.findByIdAndDelete(id);
+    const Que = await Que.findByIdAndDelete(id);
     return res.status(200).send({ success: "deleted sucessfully"});
   } catch (error) {
     return res.status(404).send({ error: error.message });
@@ -87,4 +87,4 @@ quesRouter.delete("/delete/:id", async (req, res) => {
 
 
 
-module.exports = quesRouter;
+module.exports = QueRouter;
