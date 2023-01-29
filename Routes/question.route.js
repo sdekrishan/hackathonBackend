@@ -9,8 +9,8 @@ quesRouter.get("/", async (req, res) => {
 
 try{
   let ques =await Ques.aggregate(
-    [ { $sample: { size: 5 } } ]
- ).limit(5);
+    [ { $sample: { size: 10 } } ]
+ ).limit(10);
   return res.status(200).send({ success: true,ques });
 }  
    catch (error) {
