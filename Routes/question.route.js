@@ -1,7 +1,7 @@
 const express = require("express");
+const {Que} = require("../Modals/question.modal");
 
 const QueRouter = express.Router();
-const {Que} = require("../Modals/Quetion.modal");
 
 
 
@@ -10,10 +10,11 @@ QueRouter.get("/", async (req, res) => {
   
 
 try{
-  let Que =await Que.aggregate(
+  let data =await Que.aggregate(
     [ { $sample: { size: 10 } } ]
- ).limit(10).skip(page*10);
-  return res.status(200).send({ success: true,Que });
+ ).limit(10)
+// let data = await Que.find().limit(10);
+  return res.status(200).send({ success: true,data });
 }  
    catch (error) {
     return res.status(404).send({ error: error.message });
@@ -87,4 +88,4 @@ QueRouter.delete("/delete/:id", async (req, res) => {
 
 
 
-module.exports = QueRouter;
+module.exports = {QueRouter};

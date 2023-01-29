@@ -1,7 +1,7 @@
 //imports
 const express = require("express");
 const userRouter = require("./Routes/user.route.js");
-const quesRouter = require("./Routes/question.route.js");
+const {QueRouter} = require("./Routes/question.route.js");
 const {connection} = require("./config.js/db");
 require('dotenv').config();
 const cors = require("cors");
@@ -26,7 +26,7 @@ app.use("/quote",QuoteRouter)
 //all the routes 
 app.use("/user",userRouter);
 // app.use(isAuthenticated);
-app.use("/ques",quesRouter);
+app.use("/ques",QueRouter);
 
 
 

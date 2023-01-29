@@ -39,6 +39,3 @@ const quesSchema = new mongoose.Schema(
 const Que = mongoose.model("qus", quesSchema);
 
 module.exports = {Que};
-// opt1: {
-//   type: String,
-//   required: true,
